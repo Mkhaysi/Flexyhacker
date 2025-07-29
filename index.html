@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>تحية إلى أمي</title>
+  <style>
+    body { text-align: center; font-family: Arial; margin-top: 50px; }
+    img { width: 200px; border-radius: 20px; margin-top: 20px; }
+    .heart { font-size: 60px; color: red; }
+  </style>
+</head>
+<body>
+  <h2>أدخل الكود السري:</h2>
+  <input type="password" id="codeInput" />
+  <button onclick="checkCode()">تأكيد</button>
+
+  <div id="result" style="display:none;">
+    <h2>أمي الغالية ❤️</h2>
+    <img src="https://i.ibb.co/PvVkhQ8R/Snapchat-1724410277.jpg" alt="أمي" />
+    <div class="heart">❤️</div>
+  </div>
+
+  <script>
+    function checkCode() {
+      const code = document.getElementById("codeInput").value;
+      if (code === "1234") {
+        document.getElementById("result").style.display = "block";
+      } else {
+        alert("الكود خاطئ!");
+      }
+    }
+  </script>
+</body>
+</html>
