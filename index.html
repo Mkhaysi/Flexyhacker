@@ -1,157 +1,57 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-<meta charset="UTF-8" />
-<title>خدعة فليكسي</title>
+<meta charset="UTF-8">
+<title>مرحبا بك Mkhaysi</title>
 <style>
   body {
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    background: url('https://i.imgur.com/OdL0XPt.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
     text-align: center;
-    padding: 50px 20px;
+    background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413');
+    background-size: cover;
+    background-position: center;
+    color: white;
   }
-  .step {
-    max-width: 400px;
-    margin: auto;
-    background: rgba(0,0,0,0.7);
-    padding: 20px;
-    border-radius: 12px;
+  .screen {
     display: none;
+    padding-top: 40vh;
   }
-  .step.active {
+  .active {
     display: block;
   }
-  input[type="text"] {
-    padding: 10px;
-    font-size: 18px;
-    width: 90%;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: none;
-  }
   button {
-    padding: 12px 30px;
+    padding: 10px 20px;
     font-size: 18px;
-    margin: 10px 5px;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
-  }
-  .btn-confirm {
-    background-color: #4caf50;
-    color: white;
-  }
-  .btn-cancel {
-    background-color: #f44336;
-    color: white;
   }
 </style>
 </head>
 <body>
 
-<!-- خطوة 1: اختيار اللغة (ثابت عربي الآن) -->
-<div class="step active" id="step1">
-  <h2>اختر اللغة</h2>
-  <button class="btn-confirm" onclick="nextStep(2)">العربية</button>
+<div id="screen1" class="screen active">
+  <h1>🌟 مرحبا بك Mkhaysi 🌟</h1>
+  <button onclick="nextScreen(2)">التالي</button>
 </div>
 
-<!-- خطوة 2: اختيار الشريحة -->
-<div class="step" id="step2">
-  <h2>اختر شريحة الشحن</h2>
-  <button onclick="selectOperator('جيزي')">جيزي</button>
-  <button onclick="selectOperator('موبليس')">موبليس</button>
-  <button onclick="selectOperator('أوريدو')">أوريدو</button>
-  <div style="margin-top:20px;">
-    <button class="btn-cancel" onclick="goBack(1)">رجوع</button>
-  </div>
+<div id="screen2" class="screen">
+  <h2>هل تريد أن ترى أفضل صورة لك مع أفضل صديق؟</h2>
+  <button onclick="nextScreen(3)">حسناً</button>
 </div>
 
-<!-- خطوة 3: إدخال الرقم -->
-<div class="step" id="step3">
-  <h2>أدخل الرقم المراد شحنه</h2>
-  <input type="text" id="phoneNumber" placeholder="مثال: 0661123456" />
-  <div>
-    <button class="btn-confirm" onclick="nextStep(4)">تأكيد</button>
-    <button class="btn-cancel" onclick="goBack(2)">إلغاء</button>
-  </div>
-</div>
-
-<!-- خطوة 4: اختيار مبلغ الشحن -->
-<div class="step" id="step4">
-  <h2>اختر مبلغ الشحن</h2>
-  <button onclick="selectAmount(50)">50 دج</button>
-  <button onclick="selectAmount(100)">100 دج</button>
-  <button onclick="selectAmount(150)">150 دج</button>
-  <button onclick="selectAmount(200)">200 دج</button>
-  <button onclick="selectAmount(500)">500 دج</button>
-  <button onclick="selectAmount(1000)">1000 دج</button>
-  <div style="margin-top:20px;">
-    <button class="btn-cancel" onclick="goBack(3)">رجوع</button>
-  </div>
-</div>
-
-<!-- خطوة 5: تأكيد الطلب -->
-<div class="step" id="step5">
-  <h2>هل أنت متأكد من طلبك؟</h2>
-  <div id="summary" style="margin-bottom:20px;"></div>
-  <button class="btn-confirm" onclick="showJoke()">تأكيد</button>
-  <button class="btn-cancel" onclick="goBack(4)">إلغاء</button>
+<div id="screen3" class="screen">
+  <h2>أفضل صورة لك مع صديقك 😍</h2>
+  <img src="https://i.ibb.co/Tx6Gw7s1/1754070399442.jpg" alt="صورة مع الصديق" style="max-width:80%;border-radius:10px;">
 </div>
 
 <script>
-  let selectedOperator = null;
-  let selectedAmount = null;
-
-  function nextStep(step) {
-    // تحقق من خطوات معينة قبل الانتقال
-    if(step === 4) {
-      // تأكد أن الرقم صحيح مبدئيًا
-      const phone = document.getElementById('phoneNumber').value.trim();
-      if(!phone.match(/^0\d{8,9}$/)) {
-        alert('الرجاء إدخال رقم هاتف صالح يبدأ بصفر ويتكون من 9 أو 10 أرقام.');
-        return;
-      }
-    }
-
-    // إخفاء كل الخطوات
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-
-    // إظهار الخطوة المطلوبة
-    document.getElementById('step' + step).classList.add('active');
-
-    // تحديث ملخص الخطوة 5
-    if(step === 5) {
-      const phone = document.getElementById('phoneNumber').value.trim();
-      document.getElementById('summary').innerHTML = `
-        شريحة: <b>${selectedOperator}</b><br>
-        رقم الهاتف: <b>${phone}</b><br>
-        المبلغ: <b>${selectedAmount} دج</b>
-      `;
-    }
-  }
-
-  function selectOperator(operator) {
-    selectedOperator = operator;
-    nextStep(3);
-  }
-
-  function selectAmount(amount) {
-    selectedAmount = amount;
-    nextStep(5);
-  }
-
-  function goBack(step) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById('step' + step).classList.add('active');
-  }
-
-  function showJoke() {
-    alert("هههههههه فليكسي شعر باطل\nقالك باطل يبطل روح صرف على روحك");
-    // إعادة للخطوة 1 لإعادة المحاولة
-    goBack(1);
-  }
+function nextScreen(num) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen' + num).classList.add('active');
+}
 </script>
 
 </body>
